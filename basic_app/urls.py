@@ -1,8 +1,11 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
-    TokenRefreshView,
+    TokenRefreshView, TokenVerifyView,
 )
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from basic_app import views
 
 urlpatterns = [
@@ -18,5 +21,9 @@ urlpatterns = [
     path('data/<int:pk>', views.Detail.as_view()),
 
     path('token/', TokenObtainPairView.as_view()),
-    path('refresh/', TokenRefreshView.as_view())
+    path('verify/', TokenVerifyView.as_view()),
+    path('refresh/', TokenRefreshView.as_view()),
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += staticfiles_urlpatterns()

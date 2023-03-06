@@ -17,7 +17,7 @@ class UserSerializer(serializers.Serializer):
 class UserSerializer1(serializers.ModelSerializer):
     class Meta:
         model = models.CustomUser
-        fields = 'id', 'username', 'password', 'is_superuser', 'is_staff'
+        fields = 'id', 'username', 'password', 'is_staff'
 
     def is_numeric(string):
         return string.is_numeric()

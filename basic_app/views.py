@@ -43,7 +43,7 @@ class DetailSinf(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializer.SinfSerializer
 
 
-class ListBy_Day(generics.ListCreateAPIView):
+class ListBy_Day(generics.ListAPIView):
     queryset = models.ByDay.objects.all()
     serializer_class = serializer.ByDaySerializer
     filter_backends = [filters.SearchFilter]
