@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 from basic_app import models
-from basic_app.models import CustomUser
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -16,16 +15,15 @@ class UserSerializer(serializers.Serializer):
 
 
 class UserSerializer1(serializers.ModelSerializer):
-
     class Meta:
-        model = CustomUser
+        model = models.CustomUser
         fields = 'id', 'username', 'password', 'is_superuser', 'is_staff'
 
     def is_numeric(string):
         return string.is_numeric()
 
     def create(self, validated_data):
-        print(validated_data)
+        # print(validated_data)
         if len(validated_data["username"]) < 5:
             raise serializers.ValidationError('Ism 5 ta belgidan kam bo\'lmasligi kerak')
         if len(validated_data["password"]) < 8:
@@ -48,11 +46,11 @@ class UserPasswordSerializer(ModelSerializer):
     password = serializers.CharField(style={'input_type': 'password'})
 
     class Meta:
-        model = CustomUser
+        model = models.CustomUser
         fields = [
             'username',
             'password',
-            "is_superuser",
+            # "is_superuser",
             "is_staff"
         ]
 
@@ -73,5 +71,34 @@ class UserPasswordSerializer(ModelSerializer):
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = '__all__'
+        fields = "__all__"
         model = models.Student
+
+
+class SinfSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = ['group']
+        model = models.Sinf
+
+
+class ByDaySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.ByDay
+        fields = '__all__'
+        # exclude = ['created_at', 'weekday']
+
+
+class DataSerializer(serializers.ModelSerializer):
+    # class_group = SinfSerializer()
+
+    class Meta:
+        model = models.DataStudents
+        fields = '__all__'
+        # exclude = ['weekday']
+
+
+class DataSerializer1(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.DataStudents
+        fields = '__all__'
